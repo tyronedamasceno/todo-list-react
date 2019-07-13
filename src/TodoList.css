@@ -13,6 +13,14 @@
     color: #FFF;
     border: 2px solid #0066FF; 
 }
+.todoListMain .header .header-buttons button{
+    background-color: #647382;
+    border: 2px solid #647382;
+}
+.todoListMain .header .header-buttons button:hover{
+    background-color: #414c57;
+    border: 2px solid #414c57;
+}
 .todoListMain .header button:hover {
     background-color: #003399;
     border: 2px solid #003399;
