@@ -3,7 +3,7 @@ import TodoItems from "./TodoItems";
 import "./TodoList.css";
 
 class TodoList extends Component {
-    static baseUrl = 'http://tyrone-todo-list.herokuapp.com';
+    static baseUrl = 'https://tyrone-todo-list.herokuapp.com/api/v1';
     constructor(props) {
         super(props);
 
