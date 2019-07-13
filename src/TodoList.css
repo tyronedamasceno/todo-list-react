@@ -41,10 +41,10 @@
     background-color: #ff6b6b;
 }
 .todoListMain .theList li.status-1 {
-    background-color: #1dd1a1;
+    background-color: #c8d6e5;
 }
 .todoListMain .theList li.status-2 {
-    background-color: #647382;
+    background-color: #1dd1a1;
 }
 .card-buttons {
     display: flex;
