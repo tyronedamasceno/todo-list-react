@@ -11,6 +11,7 @@ class TodoList extends Component {
             items: []
         };
 
+        this.getTasks = this.getTasks.bind(this);
         this.addItem = this.addItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.updateTask = this.updateTask.bind(this);
@@ -23,6 +24,15 @@ class TodoList extends Component {
             const sortedItems = responseData.data.sort((a, b) => a.status-b.status);
             this.setState({ items: sortedItems});
         }).catch(console.error);
+    }
+
+    getTasks(endpoint) {
+        fetch(TodoList.baseUrl+'/tasks'+endpoint).then((response) => {
+            return response.json();
+        }).then((responseData) => {
+            const sortedItems = responseData.data.sort((a, b) => a.status-b.status);
+            this.setState({ items: sortedItems});
+        })
     }
 
     addItem(e) {
@@ -98,10 +108,10 @@ class TodoList extends Component {
             <div className="todoListMain">
               <div className="header">
                 <div className="header-buttons">
-                    <button>Active</button>
-                    <button>Pending</button>
-                    <button>Finished</button>
-                    <button>Archived</button>
+                    <button onClick={() => this.getTasks('')}>Active</button>
+                    <button onClick={() => this.getTasks('/pending')}>Pending</button>
+                    <button onClick={() => this.getTasks('/done')}>Finished</button>
+                    <button onClick={() => this.getTasks('/archived')}>Archived</button>
                 </div>
                 <form onSubmit={this.addItem}>
                   <input ref={(a) => this._inputElement = a}
