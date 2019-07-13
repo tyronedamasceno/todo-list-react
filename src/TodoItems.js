@@ -35,6 +35,11 @@ class TodoItems extends Component {
                                 Archive
                             </button>
                         )}
+                        {(!item.is_active) && (
+                            <button className="card-button" onClick={() => alert('Unarchive')}>
+                                Unarchive
+                            </button>
+                        )}
                     </div>
                 </li>
     }
