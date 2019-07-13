@@ -21,12 +21,12 @@ class TodoItems extends Component {
                     </div>
                     <div className="card-buttons">
                         {(item.status === 0 && item.is_active) && (
-                            <button className="card-button"  onClick={() => this.update(item.id, 1)}>
+                            <button className="card-button"  onClick={() => this.update(item.id, {status: 1})}>
                                 Start
                             </button>
                         )}
                         {(item.status === 1  && item.is_active) && (
-                            <button className="card-button" onClick={() => this.update(item.id, 2)}>
+                            <button className="card-button" onClick={() => this.update(item.id, {status: 2})}>
                                 Finish
                             </button>
                         )}
@@ -36,7 +36,7 @@ class TodoItems extends Component {
                             </button>
                         )}
                         {(!item.is_active) && (
-                            <button className="card-button" onClick={() => alert('Unarchive')}>
+                            <button className="card-button" onClick={() => this.update(item.id, {is_active: true})}>
                                 Unarchive
                             </button>
                         )}

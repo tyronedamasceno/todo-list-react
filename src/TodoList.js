@@ -81,11 +81,11 @@ class TodoList extends Component {
         });
     }
 
-    updateTask(key, newStatus) {
+    updateTask(key, params) {
         fetch(TodoList.baseUrl+'/task/'+key, {
             headers: {'Content-Type': 'application/json'},
             method: 'PATCH',
-            body: JSON.stringify({status: newStatus})
+            body: JSON.stringify(params)
         }).then((response) => {
             return response.json();
         }).then((res) => {
@@ -98,7 +98,7 @@ class TodoList extends Component {
                 }
                 return item;
             });
-            const sortedItems = items.sort((a, b) => a.status-b.status);
+            const sortedItems = items.sort((a, b) => a.status-b.status).filter(item => item.id != key);
             this.setState({
                 items: sortedItems
             });
