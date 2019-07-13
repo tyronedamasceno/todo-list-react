@@ -50,6 +50,7 @@ class TodoList extends Component {
                 newItem.id = response.data.id;
                 newItem.key = response.data.id;
                 newItem.status = response.data.status;
+                newItem.is_active = response.data.is_active;
                 
                 const items = this.state.items;
                 const newItems = items.concat(newItem);
@@ -93,6 +94,7 @@ class TodoList extends Component {
             items.map(item => { 
                 if (item.id === response.id) {
                     item.status = response.status;
+                    item.is_active = response.is_active;
                 }
                 return item;
             });
