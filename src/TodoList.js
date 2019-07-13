@@ -98,7 +98,10 @@ class TodoList extends Component {
                 }
                 return item;
             });
-            const sortedItems = items.sort((a, b) => a.status-b.status).filter(item => item.id != key);
+            let sortedItems = items.sort((a, b) => a.status-b.status);
+            if (params.is_active) {
+                sortedItems = sortedItems.filter(item => item.id !== key);
+            }
             this.setState({
                 items: sortedItems
             });
