@@ -23,22 +23,22 @@ class TodoItems extends Component {
 				{(item.status === 0 && item.is_active) && (
 					<button className="card-button" onClick={() => this.update(item.id, { status: 1 })}>
 						Start
-                            </button>
+					</button>
 				)}
 				{(item.status === 1 && item.is_active) && (
 					<button className="card-button" onClick={() => this.update(item.id, { status: 2 })}>
 						Finish
-                            </button>
+					</button>
 				)}
 				{(item.is_active) && (
 					<button className="card-button" onClick={() => this.delete(item.id)}>
 						Archive
-                            </button>
+					</button>
 				)}
 				{(!item.is_active) && (
 					<button className="card-button" onClick={() => this.update(item.id, { is_active: true })}>
 						Unarchive
-                            </button>
+					</button>
 				)}
 			</div>
 		</li>

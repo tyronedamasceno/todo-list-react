@@ -8,13 +8,15 @@ class TodoList extends Component {
 		super(props);
 
 		this.state = {
-			items: []
+			items: [],
+			searchedItems: []
 		};
 
 		this.getTasks = this.getTasks.bind(this);
 		this.addItem = this.addItem.bind(this);
 		this.deleteItem = this.deleteItem.bind(this);
 		this.updateTask = this.updateTask.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 	}
 
 	componentDidMount() {
@@ -22,8 +24,27 @@ class TodoList extends Component {
 			return response.json();
 		}).then((responseData) => {
 			const sortedItems = responseData.data.sort((a, b) => a.status - b.status);
-			this.setState({ items: sortedItems });
+			this.setState({ items: sortedItems, searchedItems: sortedItems });
 		}).catch(console.error);
+	}
+
+	handleChange(e) {
+		let currentList = [];
+		let newList = [];
+
+		if (e.target.value !== "") {
+			currentList = this.state.items;
+			newList = currentList.filter(item => {
+				const lc = item.title.toLowerCase();
+				const filter = e.target.value.toLowerCase();
+				return lc.includes(filter);
+			});
+		} else {
+			newList = this.state.items;
+		}
+		this.setState({
+			searchedItems: newList
+		});
 	}
 
 	getTasks(endpoint) {
@@ -31,7 +52,7 @@ class TodoList extends Component {
 			return response.json();
 		}).then((responseData) => {
 			const sortedItems = responseData.data.sort((a, b) => a.status - b.status);
-			this.setState({ items: sortedItems });
+			this.setState({ items: sortedItems, searchedItems: sortedItems });
 		})
 	}
 
@@ -57,7 +78,8 @@ class TodoList extends Component {
 				const newSortedItems = newItems.sort((a, b) => a.status - b.status);
 				this.setState((prevState) => {
 					return {
-						items: newSortedItems
+						items: newSortedItems,
+						searchedItems: newSortedItems
 					};
 				});
 			});
@@ -76,7 +98,8 @@ class TodoList extends Component {
 				return (item.id !== key);
 			});
 			this.setState({
-				items: filteredItems
+				items: filteredItems,
+				searchedItems: filteredItems
 			});
 		});
 	}
@@ -103,7 +126,8 @@ class TodoList extends Component {
 				sortedItems = sortedItems.filter(item => item.id !== key);
 			}
 			this.setState({
-				items: sortedItems
+				items: sortedItems,
+				searchedItems: sortedItems
 			});
 		});
 	}
@@ -112,7 +136,7 @@ class TodoList extends Component {
 		return (
 			<div className="todoListMain">
 				<div className="header">
-					<input type="text" className="input" placeholder="Search..." />
+					<input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
 					<div className="header-buttons">
 						<button onClick={() => this.getTasks('')}>Active</button>
 						<button onClick={() => this.getTasks('/pending')}>Pending</button>
@@ -126,7 +150,7 @@ class TodoList extends Component {
 						<button type="submit">add</button>
 					</form>
 				</div>
-				<TodoItems entries={this.state.items}
+				<TodoItems entries={this.state.searchedItems}
 					delete={this.deleteItem}
 					update={this.updateTask}
 				/>
