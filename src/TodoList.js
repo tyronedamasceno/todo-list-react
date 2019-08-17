@@ -112,6 +112,7 @@ class TodoList extends Component {
         return (
             <div className="todoListMain">
               <div className="header">
+                <input type="text" className="input" placeholder="Search..." />
                 <div className="header-buttons">
                     <button onClick={() => this.getTasks('')}>Active</button>
                     <button onClick={() => this.getTasks('/pending')}>Pending</button>
